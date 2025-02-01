@@ -1,7 +1,12 @@
+const { Incubator } = require("../models");
+
 class Controller {
   static async incubatorList(req, res) {
     try {
-      res.send(`This is the incubator list`);
+      //   res.send(`This is the incubator list`);
+      const incubators = await Incubator.findAll();
+      //   res.send(incubators);
+      res.render("home", { incubators });
     } catch (error) {
       console.log(error);
       res.send(error);

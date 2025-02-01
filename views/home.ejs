@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Home - Incubators</title>
+  </head>
+  <body>
+    <%- include('partials/nav') %>
+    <h1>Homepage!</h1>
+
+    <table border="1px solid black">
+      <tr>
+        <th>Name</th>
+        <th>Code</th>
+        <th>Location</th>
+        <th>Level</th>
+        <th>Action</th>
+      </tr>
+      <% incubators.forEach((incubator) => {%>
+      <tr>
+        <td><%= incubator.name%></td>
+        <td><%= incubator.code%></td>
+        <td><%= incubator.location%></td>
+        <td><%= incubator.level%></td>
+        <td>
+          <a href="/incubators/<%= incubator.id%>">See Detail</a>
+        </td>
+      </tr>
+      <% })%>
+    </table>
+  </body>
+</html>
