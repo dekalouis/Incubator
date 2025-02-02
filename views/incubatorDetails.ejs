@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Incubator - <%= incubator.name %></title>
+  </head>
+  <body>
+    <%- include('partials/nav') %>
+    <h1><%= incubator.name %></h1>
+    <h3>Code of Incubator: <%= incubator.code %></h3>
+
+    <!-- jangan lupa tambah startup -->
+    <p>Click <a href="/incubators/<%= incubator.id %>/startUp/add">Add</a> to add StartUp</p>
+
+    <% if (startups && startups.length > 0) { %>
+        <table border="1" cellpadding="5">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Founder Name</th>
+              <th>Age</th>
+              <th>Education</th>
+              <th>Role of Founder</th>
+              <th>Valuation</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% startups.forEach((startup) => { %>
+            <tr>
+              <td><%= startup.startUpName %></td>
+              <td><%= startup.founderName %></td>
+              <!-- EDIT INI YA SEGERA BIAR GA TIMESTAMP -->
+              <td><%= startup.dateFound %></td>
+              <td><%= startup.educationOfFounder %></td>
+              <td><%= startup.roleOfFounder %></td>
+              <td><%= formatRupiah(startup.valuation) %></td>
+              <td>
+                <a href="/incubators/<%= incubator.id%>/startUp/<%= startup.id%>/edit">Edit</a>
+                <a href="/incubators/<%= incubator.id%>/startUp/<%= startup.id%>/delete">Delete</a>
+              </td>
+            </tr>
+            <% }); %>
+          </tbody>
+        </table>
+        <% } else { %>
+        <p>There is no StartUp yet!!</p>
+        <% } %>
+  
+        <!-- Display Total Valuation -->
+        <h3>
+          Valuation All StartUp: <%= formatRupiah(totalValuation) || '-' %>
+        </h3>
+      </div>
+  </body>
+</html>

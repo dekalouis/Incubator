@@ -1,4 +1,5 @@
-const { Incubator } = require("../models");
+const formatRupiah = require("../helpers/formatRupiah");
+const { Incubator, StartUp } = require("../models");
 
 class Controller {
   static async incubatorList(req, res) {
@@ -14,7 +15,9 @@ class Controller {
   }
   static async addIncubatorForm(req, res) {
     try {
-      res.send(`This is the incubator form`);
+      //   res.send(`This is the incubator form`);
+      const levels = ["International", "National", "Province"];
+      res.render("addIncubator", { levels });
     } catch (error) {
       console.log(error);
       res.send(error);
@@ -22,7 +25,15 @@ class Controller {
   }
   static async addIncubator(req, res) {
     try {
-      res.send(`This is formnya`);
+      //   res.send(`This is formnya`);
+      const { name, location, level } = req.body;
+      const newIncubator = await Incubator.create({
+        name,
+        location,
+        level,
+      });
+      console.log(newIncubator);
+      res.redirect("/");
     } catch (error) {
       console.log(error);
       res.send(error);
@@ -30,7 +41,28 @@ class Controller {
   }
   static async incubatorDetails(req, res) {
     try {
-      res.send(`Incubator detailsnya`);
+      //   res.send(`Incubator detailsnya`);
+      const { incubatorid } = req.params;
+      const incubator = await Incubator.findByPk(incubatorid);
+      const startups = await StartUp.findAll({
+        where: { IncubatorId: incubatorid },
+      });
+
+      const totalValuation = startups.reduce((sum, startup) => {
+        return sum + (startup.valuation || 0);
+      }, 0);
+
+      //   console.log(incubator)
+      //   console.log(startups);
+      //   console.log("nyoba format", formatRupiah(1000000));
+      //   console.log(totalValuation, formatRupiah);
+
+      res.render("incubatorDetails", {
+        incubator,
+        startups,
+        totalValuation,
+        formatRupiah,
+      });
     } catch (error) {
       console.log(error);
       res.send(error);

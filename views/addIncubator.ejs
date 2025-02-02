@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Create Incubator</title>
+  </head>
+  <body>
+    <%- include('partials/nav') %>
+    <h1>Create New Incubator</h1>
+    <h3>Please fill the form below to add a new Incubator!</h3>
+
+    <form action="/incubators/add" method="POST">
+      <div>
+        <label for="">The Name of The Incubator?</label>
+        <div>
+          <input type="text" name="name" />
+        </div>
+      </div>
+      <br>
+      <div>
+        <label for="">The Location of The Incubator?</label>
+        <div>
+          <input type="text" name="location" />
+        </div>
+      </div>
+      <br>
+      <div>
+        <label for="">The Level of The Incubator?</label>
+        <div>
+          <!-- <input type="text" name="education" /> -->
+          <% levels.forEach((el) => { %>
+            <input type="radio" name="level" value="<%= el%>">
+            <label for="level-<%= el.toLowerCase() %>"><%= el %></label>
+            <%}) %>
+          </select>
+        </div>
+      </div>
+      <br>
+      <div>
+        <input type="submit" value="Submit" />
+      </div>
+    </form>
+
+
+  </body>
+</html>
