@@ -32,7 +32,7 @@ class Controller {
         location,
         level,
       });
-      console.log(newIncubator);
+      //   console.log(newIncubator);
       res.redirect("/");
     } catch (error) {
       console.log(error);
@@ -49,14 +49,12 @@ class Controller {
       });
 
       const totalValuation = startups.reduce((sum, startup) => {
-        return sum + (startup.valuation || 0);
+        return sum + startup.valuation;
       }, 0);
-
       //   console.log(incubator)
       //   console.log(startups);
       //   console.log("nyoba format", formatRupiah(1000000));
       //   console.log(totalValuation, formatRupiah);
-
       res.render("incubatorDetails", {
         incubator,
         startups,
@@ -68,22 +66,54 @@ class Controller {
       res.send(error);
     }
   }
+
+  //*WORKS
   static async addStartUpForm(req, res) {
     try {
-      res.send(`form add startup`);
+      //   res.send(`form add startup`);
+      const { incubatorid } = req.params;
+      const incubator = await Incubator.findByPk(incubatorid);
+      const degrees = ["SMA", "S1", "S2", "S3"];
+      const roles = ["Hacker", "Hipster", "Hustler"];
+
+      res.render("addStartup", { incubator, degrees, roles });
     } catch (error) {
       console.log(error);
       res.send(error);
     }
   }
+
   static async addStartUp(req, res) {
     try {
-      res.send(`add startup`);
+      //   res.send(`add startup`);
+      const { incubatorid } = req.params;
+      const {
+        startUpName,
+        founderName,
+        dateFound,
+        educationOfFounder,
+        roleOfFounder,
+        valuation,
+      } = req.body;
+      //   console.log(req.body);
+      const newStartup = await StartUp.create({
+        startUpName,
+        founderName,
+        dateFound,
+        educationOfFounder,
+        roleOfFounder,
+        IncubatorId: incubatorid,
+        valuation,
+      });
+      console.log(newStartup);
+      res.redirect(`/incubators/${incubatorid}`);
     } catch (error) {
       console.log(error);
       res.send(error);
     }
   }
+
+  //! WORK ON THIS AFTER YA
   static async editStartUpForm(req, res) {
     try {
       res.send(`edit startup form`);
@@ -100,6 +130,7 @@ class Controller {
       res.send(error);
     }
   }
+
   static async deleteStartUp(req, res) {
     try {
       res.send(`delete startupnya`);

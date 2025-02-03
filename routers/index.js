@@ -12,6 +12,7 @@ router.get("/incubators/:incubatorid", Controller.incubatorDetails);
 router.get("/incubators/:incubatorid/startUp/add", Controller.addStartUpForm);
 router.post("/incubators/:incubatorid/startUp/add", Controller.addStartUp);
 
+//! kerjain
 router.get(
   "/incubators/:incubatorid/startUp/:startUp/edit",
   Controller.editStartUpForm

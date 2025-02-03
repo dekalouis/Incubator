@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Add Startup - <%= incubator.name %></title>
+  </head>
+  <body>
+    <%- include('partials/nav') %>
+    <h1>Add New StartUp</h1>
+    <h3>Incubator name: <%= incubator.name %></h3>
+
+    <form action="/incubators/<%= incubator.id %>/startUp/add" method="POST">
+      <div>
+        <label for="">StartUp Name</label>
+        <div>
+          <input type="text" name="startUpName" />
+        </div>
+      </div>
+      <br>
+      <div>
+        <label for="">Founder Name</label>
+        <div>
+          <input type="text" name="founderName" />
+        </div>
+      </div>
+      <br>
+      <div>
+        <label for="">Date Found</label>
+        <div>
+          <input type="date" name="dateFound" />
+        </div>
+      </div>
+      <br>
+      <div>
+        <label for="">Education of Founder</label>
+        <div>
+            <select name="educationOfFounder" id="">
+              <option value="" disabled selected>Select Education</option>
+              <% degrees.forEach((el) => { %>
+              <option value="<%= el %>"><%= el %></option>
+              <%}) %>
+            </select>
+          </div>
+      </div>
+      <br>
+      <div>
+        <label for="">Role of Founder</label>
+          <div>
+          <!-- <input type="text" name="education" /> -->
+          <% roles.forEach((el) => { %>
+            <input type="radio" name="roleOfFounder" value="<%= el%>">
+            <label for="<%= el.toLowerCase() %>"><%= el %></label>
+            <%}) %>
+          </select>
+        </div>
+      </div>
+      <br>
+
+      <div>
+        <label for="">Valuation</label>
+        <div>
+          <input type="number" name="valuation" />
+        </div>
+      </div>
+      <br>
+    
+      <div>
+        <input type="submit" value="Submit" />
+      </div>
+    </form>
+
+
+  </body>
+</html>
