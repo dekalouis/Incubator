@@ -9,6 +9,9 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      this.belongsTo(models.Incubator, {
+        foreignKey: "IncubatorId",
+      });
     }
     get age() {
       // if (!this.dateFound) return null;
@@ -17,7 +20,30 @@ module.exports = (sequelize, DataTypes) => {
       return currentYear - foundYear;
     }
 
-    static async foudnerRole() {}
+    static async startUpFilterData(role) {
+      const options = {
+        include: {
+          model: sequelize.models.Incubator,
+          attributes: ["code"],
+        },
+      };
+
+      if (role) {
+        options.where = { roleOfFounder: role };
+      }
+
+      options.attributes = [
+        "id",
+        "startUpName",
+        "founderName",
+        "roleOfFounder",
+        "IncubatorId",
+        "dateFound",
+        "valuation",
+      ];
+
+      return await this.findAll(options);
+    }
   }
 
   StartUp.init(

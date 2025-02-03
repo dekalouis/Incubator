@@ -245,7 +245,20 @@ class Controller {
   //! SISA INIIIII
   static async startUpList(req, res) {
     try {
-      res.send(`list startupnya`);
+      //   res.send(`list startupnya`);
+      const incubators = await Incubator.findAll();
+
+      const { role } = req.query;
+      //   console.log(req.query);
+      const startups = await StartUp.startUpFilterData(role);
+      //   console.log(startups);
+      const roles = ["Hustler", "Hipster", "Hacker"];
+      res.render("startUp", {
+        startups,
+        roles,
+        selectedRole: role,
+        formatRupiah,
+      });
     } catch (error) {
       console.log(error);
       res.send(error);

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Start-Up</title>
+    <style>
+      .selected {
+        font-weight: bold;
+      }
+    </style>
+  </head>
+  <body>
+    <%- include('partials/nav') %>
+    <h1>Start-Up</h1>
+
+    <div>
+      <a href="/startUp" class="<%= !selectedRole ? 'selected' : '' %>">All</a>
+
+      <% roles.forEach(role => { %>
+      <a
+        href="/startUp?role=<%= role %>"
+        class="<%= selectedRole === role ? 'selected' : '' %>"
+      >
+        <%= role %>
+      </a>
+      <% }); %>
+    </div>
+
+    <br />
+
+    <table border="1px solid black">
+      <thead>
+        <tr>
+          <th>Start-Up and Founder Name</th>
+          <th>Role of Founder</th>
+          <th>Valuation</th>
+          <th>Incubator Code</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% startups.forEach(el => { %>
+        <tr>
+          <td><%= el.startUpName %> - <%= el.founderName %></td>
+          <td><%= el.roleOfFounder %></td>
+          <td><%= formatRupiah(el.valuation) %></td>
+          <td><%= el.Incubator.code %></td>
+          <td>
+            <a
+              href="/incubators/<%= el.IncubatorId %>/startUp/<%= el.id %>/delete"
+              >Delete</a
+            >
+          </td>
+        </tr>
+        <% }); %>
+      </tbody>
+    </table>
+  </body>
+</html>
