@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>
+      Edit Startup - <%= startup.startUpName %> - <%= incubator.name %>
+    </title>
+  </head>
+  <body>
+    <%- include('partials/nav') %>
+    <h1>Edit StartUp - <%= startup.startUpName %></h1>
+    <h3>Incubator name: <%= incubator.name %></h3>
+
+    <% if (errors && errors.length > 0) { %>
+    <p style="color: red; font-weight: bold"><%= errors.join(", ") %></p>
+    <% } %>
+
+    <form
+      action="/incubators/<%= incubator.id %>/startUp/<%= startup.id %>/edit"
+      method="POST"
+    >
+      <div>
+        <label for="">StartUp Name</label>
+        <div>
+          <input
+            type="text"
+            name="startUpName"
+            value="<%= startup.startUpName%>"
+          />
+        </div>
+      </div>
+      <br />
+      <div>
+        <label for="">Founder Name</label>
+        <div>
+          <input
+            type="text"
+            name="founderName"
+            value="<%= startup.founderName%>"
+          />
+        </div>
+      </div>
+      <br />
+      <div>
+        <label for="">Date Found</label>
+        <div>
+          <input
+            type="date"
+            name="dateFound"
+            value="<%= formatDate(startup.dateFound) %>"
+          />
+        </div>
+      </div>
+      <br />
+      <div>
+        <label for="">Education of Founder</label>
+        <div>
+          <select name="educationOfFounder" id="">
+            <option value="" disabled selected>Select Education</option>
+            <% degrees.forEach((el) => { %> <% if (el ===
+            startup.educationOfFounder) { %>
+            <option value="<%= el %>" selected><%= el %></option>
+            <% } else { %>
+            <option value="<%= el %>"><%= el %></option>
+
+            <%}}) %>
+          </select>
+        </div>
+      </div>
+      <br />
+
+      <div>
+        <label for="">Role of Founder</label>
+        <div>
+          <% roles.forEach((el) => { %> <% if (el === startup.roleOfFounder) {
+          %>
+          <input
+            type="radio"
+            name="roleOfFounder"
+            value="<%= el %>"
+            id="<%= el.toLowerCase() %>"
+            checked
+          />
+          <label for="<%= el.toLowerCase() %>"><%= el %></label>
+          <% } else { %>
+          <input
+            type="radio"
+            name="roleOfFounder"
+            value="<%= el %>"
+            id="<%= el.toLowerCase() %>"
+          />
+          <label for="<%= el.toLowerCase() %>"><%= el %></label>
+          <% } %> <% }) %>
+        </div>
+      </div>
+      <br />
+
+      <div>
+        <label for="">Valuation</label>
+        <div>
+          <input
+            type="number"
+            name="valuation"
+            value="<%= startup.valuation%>"
+          />
+        </div>
+      </div>
+      <br />
+
+      <div>
+        <input type="submit" value="Submit" />
+      </div>
+    </form>
+  </body>
+</html>

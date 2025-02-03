@@ -10,6 +10,12 @@
     <h1><%= incubator.name %></h1>
     <h3>Code of Incubator: <%= incubator.code %></h3>
 
+
+    <% if (message) { %>
+        <p style="color: red; font-weight: bold;"><%= message %></p>
+      <% } %>
+      
+
     <!-- jangan lupa tambah startup -->
     <p>Click <a href="/incubators/<%= incubator.id %>/startUp/add">Add</a> to add StartUp</p>
 
@@ -32,7 +38,7 @@
               <td><%= startup.startUpName %></td>
               <td><%= startup.founderName %></td>
               <!-- EDIT INI YA SEGERA BIAR GA TIMESTAMP -->
-              <td><%= startup.dateFound %></td>
+              <td><%= startup.age %></td>
               <td><%= startup.educationOfFounder %></td>
               <td><%= startup.roleOfFounder %></td>
               <td><%= formatRupiah(startup.valuation) %></td>

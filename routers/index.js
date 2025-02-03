@@ -12,7 +12,6 @@ router.get("/incubators/:incubatorid", Controller.incubatorDetails);
 router.get("/incubators/:incubatorid/startUp/add", Controller.addStartUpForm);
 router.post("/incubators/:incubatorid/startUp/add", Controller.addStartUp);
 
-//! kerjain
 router.get(
   "/incubators/:incubatorid/startUp/:startUp/edit",
   Controller.editStartUpForm
@@ -27,6 +26,7 @@ router.get(
   Controller.deleteStartUp
 );
 
+//! kerjain
 router.get("/startUp", Controller.startUpList);
 
 module.exports = router;
