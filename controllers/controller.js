@@ -122,12 +122,16 @@ class Controller {
       //! EROR BARYU
 
       const { incubatorid } = req.params;
+
+      let errorMessages = ["Unexpected Error!!"];
       console.log(err);
       if (err.name === "SequelizeValidationError") {
-        err = err.errors.map((el) => el.message);
+        errorMessages = err.errors.map((el) => el.message);
       }
       res.redirect(
-        `/incubators/${incubatorid}/startUp/add?errors=${err.join(",")}`
+        `/incubators/${incubatorid}/startUp/add?errors=${errorMessages.join(
+          ","
+        )}`
       );
       //   console.error(error);
       //   res.send(error);
@@ -209,11 +213,13 @@ class Controller {
 
       const { incubatorid, startUp: startupid } = req.params;
 
+      let errorMessages = ["Unexpected Error!!"];
+
       if (err.name === "SequelizeValidationError") {
-        err = err.errors.map((el) => el.message);
+        errorMessages = err.errors.map((el) => el.message);
       }
       res.redirect(
-        `/incubators/${incubatorid}/startUp/${startupid}/edit?errors=${err.join(
+        `/incubators/${incubatorid}/startUp/${startupid}/edit?errors=${errorMessages.join(
           ","
         )}`
       );
